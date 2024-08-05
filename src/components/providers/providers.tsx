@@ -1,19 +1,13 @@
 "use client";
 
-import React from 'react';
-import { dark } from "@clerk/themes";
-import { ClerkProvider } from '@clerk/nextjs';
+import React from "react";
 
 interface Props {
-    children: React.ReactNode;
+  children: React.ReactNode;
 }
 
 const Providers = ({ children }: Props) => {
-    return (
-        <ClerkProvider appearance={{ baseTheme: dark }}>
-            {children}
-        </ClerkProvider>
-    )
+  return { children };
 };
 
-export default Providers
+export default Providers;

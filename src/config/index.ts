@@ -1,39 +1,56 @@
 import { Metadata } from "next";
 
 export const SITE_CONFIG: Metadata = {
-    title: {
-        // write a default title for astra a ai powered website builder suggest something unique and catchy don't use the same words of ai powered website builder give a unique name
-        default: "Astra - AI Powered Website Builder",
-        template: `%s | Astra`
-    },
-    description: "Astra is an AI powered website builder that helps you create a website in minutes. No coding skills required. Get started for free!",
-    icons: {
-        icon: [
-            {
-                url: "/icons/favicon.ico",
-                href: "/icons/favicon.ico",
-            }
-        ]
-    },
-    openGraph: {
-        title: "Astra - AI Powered Website Builder",
-        description: "Astra is an AI powered website builder that helps you create a website in minutes. No coding skills required. Get started for free!",
-        images: [
-            {
-                url: "/assets/og-image.png",
-            }
-        ]
-    },
-    twitter: {
-        card: "summary_large_image",
-        creator: "@shreyassihasane",
-        title: "Astra - AI Powered Website Builder",
-        description: "Astra is an AI powered website builder that helps you create a website in minutes. No coding skills required. Get started for free!",
-        images: [
-            {
-                url: "/assets/og-image.png",
-            }
-        ]
-    },
-    metadataBase: new URL("https://astra-app.vercel.app"),
+  title: {
+    default:
+      "Adem Ben Abdallah | Full-Stack Developer | React & Next.js Expert",
+    template: `%s | Adem Ben Abdallah`,
+  },
+  description:
+    "Explore the professional profile of Adem Ben Abdallah, a highly skilled full-stack developer with expertise in TypeScript, React, Next.js, and Node.js. Discover his projects, experience, and contributions to web development from Tunisia.",
+  icons: {
+    icon: [
+      {
+        url: "/icons/favicon.ico",
+        href: "/icons/favicon.ico",
+      },
+    ],
+  },
+  openGraph: {
+    title: "Adem Ben Abdallah | Full-Stack Developer | React & Next.js Expert",
+    emails: ["adembenabdallajh.contact@gmail.com"],
+    phoneNumbers: ["+216 47067723"],
+    siteName: "Adem Ben Abdallah",
+    countryName: "Tunisia",
+    description:
+      "Explore the professional profile of Adem Ben Abdallah, a highly skilled full-stack developer with expertise in TypeScript, React, Next.js, and Node.js. Discover his projects, experience, and contributions to web development from Tunisia.",
+    type: "profile",
+
+    url: "https://www.adembenabdallah.com/",
+    images: [
+      {
+        url: "https://www.adembenabdallah.com/images/adem.jpeg",
+        width: 800,
+        height: 600,
+        alt: "Adem Ben Abdallah Profile Picture",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: "@yourTwitterHandle",
+    creator: "@AdemSoft",
+    title: "Adem Ben Abdallah | Full-Stack Developer | React & Next.js Expert",
+    description:
+      "Explore the professional profile of Adem Ben Abdallah, a highly skilled full-stack developer with expertise in TypeScript, React, Next.js, and Node.js. Discover his projects, experience, and contributions to web development from Tunisia.",
+    images: [
+      {
+        url: "https://www.adembenabdallah.com/images/adem.jpeg",
+        alt: "Adem Ben Abdallah Profile Picture",
+      },
+    ],
+  },
+  metadataBase: new URL("https://www.adembenabdallah.com"),
+  robots: "index, follow",
+  viewport: "width=device-width, initial-scale=1.0",
 };
