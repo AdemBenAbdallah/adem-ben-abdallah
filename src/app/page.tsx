@@ -29,17 +29,19 @@ const HomePage = () => {
               </span>
               <span className="backdrop absolute inset-[1px] rounded-full bg-neutral-950 transition-colors duration-200 group-hover:bg-neutral-900" />
               <span className="h-full w-full blur-md absolute bottom-0 inset-x-0 bg-gradient-to-tr from-primary/40"></span>
-              <span className="z-10 py-0.5 text-sm text-neutral-100 flex items-center justify-center gap-1.5">
-                <Image
-                  src="/icons/sparkles-dark.svg"
-                  alt="✨"
-                  width={24}
-                  height={24}
-                  className="w-4 h-4"
-                />
-                Introducing Adem
-                <ChevronRight className="w-4 h-4" />
-              </span>
+              <Link href={"/about"} className="relative">
+                <span className="z-10 py-0.5 text-sm text-neutral-100 flex items-center justify-center gap-1.5">
+                  <Image
+                    src="/icons/sparkles-dark.svg"
+                    alt="✨"
+                    width={24}
+                    height={24}
+                    className="w-4 h-4"
+                  />
+                  Introducing Adem
+                  <ChevronRight className="w-4 h-4" />
+                </span>
+              </Link>
             </button>
 
             <div className="flex flex-col items-center mt-8 max-w-3xl w-11/12 md:w-full">
