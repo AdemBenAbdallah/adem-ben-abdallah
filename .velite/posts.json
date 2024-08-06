@@ -9,7 +9,7 @@
       "code",
       "blog"
     ],
-    "body": "const{Fragment:e,jsx:n,jsxs:t}=arguments[0];function _createMdxContent(c){const o={code:\"code\",h1:\"h1\",h3:\"h3\",p:\"p\",...c.components};return t(e,{children:[n(o.h1,{children:\"Hello World\"}),\"\\n\",t(o.p,{children:[\"Welcome to my blog \",n(o.code,{children:\"inline code\"})]}),\"\\n\",n(o.h3,{children:\"Header 3\"})]})}return{default:function(e={}){const{wrapper:t}=e.components||{};return t?n(t,{...e,children:n(_createMdxContent,{...e})}):_createMdxContent(e)}};",
+    "body": "const{Fragment:e,jsx:n,jsxs:o}=arguments[0];function _createMdxContent(t){const r={code:\"code\",h1:\"h1\",h3:\"h3\",p:\"p\",...t.components},{Callout:c}=r;return c||function(e,n){throw new Error(\"Expected \"+(n?\"component\":\"object\")+\" `\"+e+\"` to be defined: you likely forgot to import, pass, or provide it.\")}(\"Callout\",!0),o(e,{children:[n(c,{type:\"warning\",children:\"Hello I am a callout\"}),\"\\n\",n(r.h1,{children:\"Hello World\"}),\"\\n\",o(r.p,{children:[\"Welcome to my blog \",n(r.code,{children:\"inline code\"})]}),\"\\n\",n(r.h3,{children:\"Header 3\"})]})}return{default:function(e={}){const{wrapper:o}=e.components||{};return o?n(o,{...e,children:n(_createMdxContent,{...e})}):_createMdxContent(e)}};",
     "slugAsParams": "hello-world"
   }
 ]
