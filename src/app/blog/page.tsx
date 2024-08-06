@@ -2,7 +2,6 @@ import { posts } from "#site/content";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { PostItem, Tag } from "@/components/ui/post-item";
 import { getAllTags, sortPosts, sortTagsByCount } from "@/lib/utils";
-import console from "console";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -27,8 +26,6 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
     POSTS_PER_PAGE * (currentPage - 1),
     POSTS_PER_PAGE * currentPage
   );
-
-  console.log(posts);
 
   const tags = getAllTags(posts);
   const sortedTags = sortTagsByCount(tags);
