@@ -31,7 +31,7 @@ const Navbar = async () => {
               >
                 About
               </Link>
-              <Link href="#" className="hover:text-foreground/80 text-sm">
+              <Link href="/blog" className="hover:text-foreground/80 text-sm">
                 Blog
               </Link>
               <Link
