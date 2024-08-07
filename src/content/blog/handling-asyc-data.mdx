@@ -1,0 +1,240 @@
+---
+title: Handling Asynchronous Data Fetching in React Beyond the Basics
+description: Handling asynchronous data fetching in React
+date: 2024-07-07
+tags: ['react js', 'react-query']
+published: true
+---
+
+If you've ever fetched data in a React app, you've likely encountered a basic pattern like this:
+
+```js
+const [id, setId] = useState(1)
+
+useEffect(() => {
+  fetch(`https://pokeapi.co/api/v2/pok/${id}`)
+    .then(response => response.json())
+    .then(data => setPokemon(data))
+    .catch(error => setError(error))
+}, [id])
+```
+
+This code fetches data from the PokeAPI and displays it.
+While it's great for tutorials, you definitely wouldn’t want to use it in production unless you enjoy debugging at 3 AM.
+Let’s dive into some common pitfalls and how to avoid them like a pro Pokemon trainer dodging Zubats in a cave!
+
+## **1. Handling Loading and Error States**
+
+The initial example doesn’t handle loading and error states,
+leading to two major UX issues: cumulative layout shift and an infinite spinner.
+To address this, you should manage these states explicitly:
+
+```js /floatingStyles/
+const [id, setId] = useState(1)
+const [pokemon, setPokemon] = useState(null)
+const [loading, setLoading] = useState(false)
+const [error, setError] = useState(null)
+
+useEffect(() => {
+  setLoading(true)
+  fetch(`https://pokeapi.co/api/v2/pok/${id}`)
+    .then(response => response.json())
+    .then(data => {
+      setPokemon(data)
+      setLoading(false)
+    })
+    .catch(error => {
+      setError(error)
+      setLoading(false)
+    })
+}, [id])
+```
+
+This approach ensures you can display appropriate feedback to the user while data is being fetched.
+
+## **2. Avoiding Race Conditions**
+
+A more subtle issue arises with multiple asynchronous requests.
+Let's take an example where you have Pokémon data to display.
+You have a button that, when clicked, changes the ID of the Pokemon.
+
+<figure>
+  <img src="/static/race_cond1.png" alt="race condition 1" />
+  <figcaption>
+    Here, the `id` state is set to 1 when you click the button.
+  </figcaption>
+</figure>
+You still haven't received the data from the first request, but you click the button
+again, changing the id to 2.
+
+<figure>
+  <img src="/static/race_cond2.png" alt="race condition 2" />
+  <figcaption>
+    Here, the `id` state is set to 2 when you click the button.
+  </figcaption>
+</figure>
+There is a possibility that the second request with ID 2 returns first, and the data
+for ID 1 returns second. Your state with the pokemonId will be out of sync with the
+fetch call if the fetch for ID 1 returns after the fetch for ID 2 due to happenstance.
+
+<figure>
+  <img src="/static/race_cond3.png" alt="race condition 3" />
+  <figcaption>The data for ID 2 returns first.</figcaption>
+</figure>
+<figure>
+  <img src="/static/race_cond4.png" alt="race condition 4" />
+  <figcaption>The data for ID 1 returns second.</figcaption>
+</figure>
+This race condition can cause the UI to display incorrect data, as the state
+might not reflect the latest requested ID.
+
+If the user clicks a button or triggers a change that results in a new fetch,
+you could end up with race conditions this is how you can fix that:
+
+```js /floatingStyles/
+useEffect(() => {
+  let isMounted = true
+
+  setLoading(true)
+  fetch(`https://pokeapi.co/api/v2/pok/${id}`)
+    .then(response => response.json())
+    .then(data => {
+      if (isMounted) {
+        setPokemon(data)
+      }
+      setLoading(false)
+    })
+    .catch(error => {
+      if (isMounted) {
+        setError(error)
+      }
+      setLoading(false)
+    })
+
+  return () => {
+    isMounted = false
+  }
+}, [id])
+```
+
+By using a isMounted flag, you can ignore responses from outdated requests.
+
+## **3. Abstracting Data Fetching Logic**
+
+To avoid duplicating the fetching logic, you can abstract it into a custom hook:
+
+```js showLineNumbers {2-4}
+const usePokemon = id => {
+  const [id, setId] = useState(1)
+  const [pokemon, setPokemon] = useState(null)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
+
+  useEffect(() => {
+    let isMounted = true
+
+    setLoading(true)
+    fetch(`https://pokeapi.co/api/v2/pok/${id}`)
+      .then(response => response.json())
+      .then(data => {
+        if (isMounted) {
+          setPokemon(data)
+        }
+        setLoading(false)
+      })
+      .catch(error => {
+        if (isMounted) {
+          setError(error)
+        }
+        setLoading(false)
+      })
+
+    return () => {
+      isMounted = false
+    }
+  }, [id])
+
+  return { pokemon, loading, error }
+}
+```
+
+This hook encapsulates the data fetching logic, making it reusable across different components.
+
+## **4. Managing Data Duplication and State**
+
+One major drawback of using local component state is data duplication. If multiple components fetch the same data, it leads to redundant requests and potential inconsistencies.
+
+To mitigate this, you can lift the state up to a common parent component or use context:
+
+```js showLineNumber
+const PokemonContext = createContext()
+
+const PokemonProvider = ({ url, children }) => {
+  const [data, setData] = useState({})
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
+
+  useEffect(() => {
+    let isMounted = true
+    setLoading(true)
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        if (isMounted) {
+          setPokemon(data)
+        }
+        setLoading(false)
+      })
+      .catch(error => {
+        if (isMounted) {
+          setError(error)
+        }
+        setLoading(false)
+      })
+
+    return () => {
+      isMounted = false
+    }
+  }, [id])
+
+  return (
+    <PokemonContext.Provider
+      value={{
+        data,
+        loading,
+        error,
+        fetchPokemon,
+      }}
+    >
+      {children}
+    </PokemonContext.Provider>
+  )
+}
+```
+
+## **5. Leveraging React Query**
+
+To simplify data fetching and state management, consider using React Query. It handles caching, synchronization, and updating state efficiently:
+
+```js showLineNumbers {10}
+import { useQuery } from 'react-query'
+
+const fetchPokemon = async id => {
+  const res = await fetch(`https://pokeapi.co/api/v2/pok/${id}`)
+  if (!res.ok) throw new Error('Network response was not ok')
+  return res.json()
+}
+
+const usePokemon = id => {
+  return useQuery(['pokemon', id], () => fetchPokemon(id))
+}
+```
+
+React Query abstracts away much of the complexity involved in handling asynchronous data and state, allowing you to focus on building features.
+
+## **Conclusion**
+
+Managing asynchronous data fetching in React involves more than just calling an API.
+Handling loading and error states, avoiding race conditions, abstracting logic, managing data duplication,
+and leveraging tools like React Query are essential for building robust and efficient applications.
+By addressing these aspects, you’ll enhance both the reliability and user experience of your React apps.
