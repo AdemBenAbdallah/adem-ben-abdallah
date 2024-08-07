@@ -6,6 +6,7 @@ import Btn from "@/components/ui/btn";
 import { Input } from "@/components/ui/input";
 import SelectInput from "@/components/ui/selectInput";
 import Textarea from "@/components/ui/textarea";
+import "@/styles/mdx.css";
 import emailjs from "@emailjs/browser";
 import { useRef, useState } from "react";
 import { FaProjectDiagram } from "react-icons/fa";
@@ -41,6 +42,19 @@ const Contact = () => {
   };
   return (
     <div id="contact" className="pt-24 px-3 lg:px-8 pb-20">
+      <article className="prose-gray ">
+        <h1>Garlic bread with cheese: What the science tells us</h1>
+        <p>
+          For years parents have espoused the health benefits of eating garlic
+          bread with cheese to their children, with the food earning such an
+          iconic status in our culture that kids will often dress up as warm,
+          cheesy loaf for Halloween.
+        </p>
+        <p>
+          But a recent study shows that the celebrated appetizer may be linked
+          to a series of rabies cases springing up around the country.
+        </p>
+      </article>
       <AboutCard>
         <div className="grid gap-8 grid-cols-1 lg:grid-cols-3">
           <div className="flex flex-col gap-8">
@@ -53,7 +67,7 @@ const Contact = () => {
             <ContactCard
               title="Email Me At"
               icon={<FaVoicemail className="fill-[#333] text-lg" />}
-              text="adembenabdallah.contact@gmail.com"
+              text="adembenabdallah.contact@gmail.com slkdjf"
               btnText="Email me"
             />
           </div>
