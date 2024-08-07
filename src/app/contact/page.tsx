@@ -3,7 +3,7 @@
 import ContactCard from "@/components/cards/contact";
 import AboutCard from "@/components/ui/aboutCard";
 import Btn from "@/components/ui/btn";
-import Input from "@/components/ui/contactInput";
+import { Input } from "@/components/ui/input";
 import SelectInput from "@/components/ui/selectInput";
 import Textarea from "@/components/ui/textarea";
 import emailjs from "@emailjs/browser";
