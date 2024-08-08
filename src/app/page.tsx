@@ -1,19 +1,19 @@
-import { Container, Icons, Wrapper } from "@/components";
-import { BorderBeam } from "@/components/ui/border-beam";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { LampContainer } from "@/components/ui/lamp";
-import Marquee from "@/components/ui/marquee";
-import SectionBadge from "@/components/ui/section-badge";
-import { features, perks, reviews } from "@/constants";
-import { cn } from "@/lib/utils";
-import { ArrowRight, ChevronRight, UserIcon } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
+import { Container, Icons, Wrapper } from '@/components'
+import { BorderBeam } from '@/components/ui/border-beam'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { LampContainer } from '@/components/ui/lamp'
+import Marquee from '@/components/ui/marquee'
+import SectionBadge from '@/components/ui/section-badge'
+import { features, perks, reviews } from '@/constants'
+import { cn } from '@/lib/utils'
+import { ArrowRight, ChevronRight, UserIcon } from 'lucide-react'
+import Image from 'next/image'
+import Link from 'next/link'
 
 const HomePage = () => {
-  const firstRow = reviews.slice(0, reviews.length / 2);
-  const secondRow = reviews.slice(reviews.length / 2);
+  const firstRow = reviews.slice(0, reviews.length / 2)
+  const secondRow = reviews.slice(reviews.length / 2)
 
   return (
     <section className="w-full relative flex items-center justify-center flex-col px-4 md:px-0 py-8">
@@ -29,16 +29,9 @@ const HomePage = () => {
               </span>
               <span className="backdrop absolute inset-[1px] rounded-full bg-neutral-950 transition-colors duration-200 group-hover:bg-neutral-900" />
               <span className="h-full w-full blur-md absolute bottom-0 inset-x-0 bg-gradient-to-tr from-primary/40"></span>
-              <Link href={"/about"} className="relative">
+              <Link href={'/about'} className="relative">
                 <span className="z-10 py-0.5 text-sm text-neutral-100 flex items-center justify-center gap-1.5">
-                  <Image
-                    src="/icons/sparkles-dark.svg"
-                    alt="✨"
-                    width={24}
-                    height={24}
-                    className="w-4 h-4"
-                  />
-                  Introducing Adem
+                  📝 About Me
                   <ChevronRight className="w-4 h-4" />
                 </span>
               </Link>
@@ -54,11 +47,11 @@ const HomePage = () => {
               </p>
               <div className="hidden md:flex relative items-center justify-center mt-8 md:mt-12 w-full">
                 <Link
-                  href="#"
+                  href="/contact"
                   className="flex items-center justify-center w-max rounded-full border-t border-foreground/30 bg-white/20 backdrop-blur-lg px-2 py-1 md:py-2 gap-2 md:gap-8 shadow-3xl shadow-background/40 cursor-pointer select-none"
                 >
                   <p className="text-foreground text-sm text-center md:text-base font-medium pl-4 pr-4 lg:pr-0">
-                    ✨ {"  "} Start building your dream website now!
+                    ☝️ {'  '} Start building your dream website now!
                   </p>
                   <Button
                     size="sm"
@@ -73,7 +66,7 @@ const HomePage = () => {
 
             <div className="relative flex items-center py-10 md:py-20 w-full">
               <div className="absolute top-1/2 left-1/2 -z-10 gradient w-3/4 -translate-x-1/2 h-3/4 -translate-y-1/2 inset-0 blur-[10rem]"></div>
-              <div className="-m-2 rounded-xl p-2 ring-1 ring-inset ring-foreground/20 lg:-m-4 lg:rounded-2xl bg-opacity-50 backdrop-blur-3xl">
+              <div className="-m-2 rounded-xl p-2 ring-1 ring-inset ring-foreground/20 lg:-m-4 lg:rounded-2xl bg-opacity-50 backdrop-blur-3xl overflow-hidden">
                 <Image
                   src="/assets/dashboard.png"
                   alt="banner image"
@@ -106,7 +99,7 @@ const HomePage = () => {
         <Container>
           <div className="flex flex-col items-center justify-center py-10 md:py-20 w-full">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full divide-x-0 md:divide-x divide-y md:divide-y-0 divide-gray-900 first:border-l-2 lg:first:border-none first:border-gray-900">
-              {perks.map((perk) => (
+              {perks.map(perk => (
                 <div
                   key={perk.title}
                   className="flex flex-col items-start px-4 md:px-6 lg:px-8 lg:py-6 py-4"
@@ -150,7 +143,7 @@ const HomePage = () => {
         <Container>
           <div className="flex flex-col items-center justify-center py-10 md:py-20 w-full">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full gap-8">
-              {features.map((feature) => (
+              {features.map(feature => (
                 <div
                   key={feature.title}
                   className="flex flex-col items-start lg:items-start px-0 md:px-0"
@@ -250,12 +243,12 @@ const HomePage = () => {
           <div className="py-10 md:py-20 w-full">
             <div className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden py-10">
               <Marquee pauseOnHover className="[--duration:20s] select-none">
-                {firstRow.map((review) => (
+                {firstRow.map(review => (
                   <figure
                     key={review.name}
                     className={cn(
-                      "relative w-64 cursor-pointer overflow-hidden rounded-xl border p-4",
-                      "border-zinc-50/[.1] bg-background over:bg-zinc-50/[.15]"
+                      'relative w-64 cursor-pointer overflow-hidden rounded-xl border p-4',
+                      'border-zinc-50/[.1] bg-background over:bg-zinc-50/[.15]'
                     )}
                   >
                     <div className="flex flex-row items-center gap-2">
@@ -280,12 +273,12 @@ const HomePage = () => {
                 pauseOnHover
                 className="[--duration:20s] select-none"
               >
-                {secondRow.map((review) => (
+                {secondRow.map(review => (
                   <figure
                     key={review.name}
                     className={cn(
-                      "relative w-64 cursor-pointer overflow-hidden rounded-xl border p-4",
-                      "border-zinc-50/[.1] bg-background over:bg-zinc-50/[.15]"
+                      'relative w-64 cursor-pointer overflow-hidden rounded-xl border p-4',
+                      'border-zinc-50/[.1] bg-background over:bg-zinc-50/[.15]'
                     )}
                   >
                     <div className="flex flex-row items-center gap-2">
@@ -355,7 +348,7 @@ const HomePage = () => {
                     required
                     type="email"
                     placeholder="Enter your email"
-                    className="focus-visible:ring-0 focus-visible:ring-transparent focus-visible:border-primary duration-300 w-full"
+                    className="focus-visible:ring-0 focus-visible:ring-transparent focus-visible:border-primary duration-300 w-full bg-transparent"
                   />
                   <Button
                     type="submit"
@@ -367,7 +360,7 @@ const HomePage = () => {
                   </Button>
                 </form>
                 <p className="text-xs text-muted-foreground">
-                  By subscribing you agree with our{" "}
+                  By subscribing you agree with our{' '}
                   <Link href="#">Privacy Policy</Link>
                 </p>
               </div>
@@ -376,7 +369,7 @@ const HomePage = () => {
         </Container>
       </Wrapper>
     </section>
-  );
-};
+  )
+}
 
-export default HomePage;
+export default HomePage
