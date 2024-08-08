@@ -59,7 +59,7 @@ Let's take an example where you have Pokémon data to display.
 You have a button that, when clicked, changes the ID of the Pokemon
 
 <figure>
-  <Image src="/static/race_cond1.png" alt="race condition 1" />
+  <Image src="/blog/race_cond1.png" alt="race condition 1" />
   <figcaption>
     Here, the `id` state is set to 1 when you click the button.
   </figcaption>
@@ -68,7 +68,7 @@ You still haven't received the data from the first request, but you click the bu
 again, changing the id to 2.
 
 <figure>
-  <Image src="/static/race_cond2.png" alt="race condition 2" />
+  <Image src="/blog/race_cond2.png" alt="race condition 2" />
   <figcaption>
     Here, the `id` state is set to 2 when you click the button.
   </figcaption>
@@ -78,11 +78,11 @@ for ID 1 returns second. Your state with the pokemonId will be out of sync with 
 fetch call if the fetch for ID 1 returns after the fetch for ID 2 due to happenstance.
 
 <figure>
-  <Image src="/static/race_cond3.png" alt="race condition 3" />
+  <Image src="/blog/race_cond3.png" alt="race condition 3" />
   <figcaption>The data for ID 2 returns first.</figcaption>
 </figure>
 <figure>
-  <Image src="/static/race_cond4.png" alt="race condition 4" />
+  <Image src="/blog/race_cond4.png" alt="race condition 4" />
   <figcaption>The data for ID 1 returns second.</figcaption>
 </figure>
 This race condition can cause the UI to display incorrect data, as the state
