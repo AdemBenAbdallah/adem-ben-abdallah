@@ -1,5 +1,6 @@
 import MyImage from "@/../public/assets/adem.jpeg";
 import { Container } from "@/components";
+import Burge from "@/components/ui/Burge";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -42,7 +43,10 @@ const Navbar = async () => {
               </Link>
             </ul>
           </nav>
-          <div className="flex items-center gap-4"></div>
+
+          <div className="flex items-center gap-4">
+            <Burge />
+          </div>
         </div>
       </Container>
     </header>

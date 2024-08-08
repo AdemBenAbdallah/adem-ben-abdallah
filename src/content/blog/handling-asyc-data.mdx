@@ -12,7 +12,7 @@ If you've ever fetched data in a React app, you've likely encountered a basic pa
 const [id, setId] = useState(1);
 
 useEffect(() => {
-  fetch(`https://pokeapi.co/api/v2/pok/${id}`)
+  fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
     .then((response) => response.json())
     .then((data) => setPokemon(data))
     .catch((error) => setError(error));
@@ -37,7 +37,7 @@ const [error, setError] = useState(null);
 
 useEffect(() => {
   setLoading(true);
-  fetch(`https://pokeapi.co/api/v2/pok/${id}`)
+  fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
     .then((response) => response.json())
     .then((data) => {
       setPokemon(data);
@@ -65,7 +65,7 @@ You have a button that, when clicked, changes the ID of the Pokemon
   </figcaption>
 </figure>
 You still haven't received the data from the first request, but you click the button
-again, changing the id to 2.
+again, changing the `id` to 2.
 
 <figure>
   <Image src="/blog/race_cond2.png" alt="race condition 2" />
@@ -79,14 +79,14 @@ fetch call if the fetch for ID 1 returns after the fetch for ID 2 due to happens
 
 <figure>
   <Image src="/blog/race_cond3.png" alt="race condition 3" />
-  <figcaption>The data for ID 2 returns first.</figcaption>
+  <figcaption>The data for `id` 2 returns first.</figcaption>
 </figure>
 <figure>
   <Image src="/blog/race_cond4.png" alt="race condition 4" />
-  <figcaption>The data for ID 1 returns second.</figcaption>
+  <figcaption>The data for `id` 1 returns second.</figcaption>
 </figure>
 This race condition can cause the UI to display incorrect data, as the state
-might not reflect the latest requested ID.
+might not reflect the latest requested `id`.
 
 If the user clicks a button or triggers a change that results in a new fetch,
 you could end up with race conditions this is how you can fix that:
@@ -96,7 +96,7 @@ useEffect(() => {
   let isMounted = true;
 
   setLoading(true);
-  fetch(`https://pokeapi.co/api/v2/pok/${id}`)
+  fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
     .then((response) => response.json())
     .then((data) => {
       if (isMounted) {
@@ -134,7 +134,7 @@ const usePokemon = (id) => {
     let isMounted = true;
 
     setLoading(true);
-    fetch(`https://pokeapi.co/api/v2/pok/${id}`)
+    fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
       .then((response) => response.json())
       .then((data) => {
         if (isMounted) {
@@ -170,7 +170,7 @@ To mitigate this, you can lift the state up to a common parent component or use 
 const PokemonContext = createContext();
 
 const PokemonProvider = ({ url, children }) => {
-  const [data, setData] = useState({});
+  const [pokemon, setPokemon] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -220,7 +220,7 @@ To simplify data fetching and state management, consider using React Query. It h
 import { useQuery } from "react-query";
 
 const fetchPokemon = async (id) => {
-  const res = await fetch(`https://pokeapi.co/api/v2/pok/${id}`);
+  const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
   if (!res.ok) throw new Error("Network response was not ok");
   return res.json();
 };
