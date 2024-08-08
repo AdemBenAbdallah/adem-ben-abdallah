@@ -18,7 +18,7 @@ const Burge = () => {
     <>
       <button
         onClick={handleClick}
-        className="flex flex-col justify-center items-center z-50"
+        className="flex flex-col justify-center items-center z-50 md:hidden"
       >
         <span
           className={`bg-slate-200 block transition-transform duration-300 ease-out h-0.5 w-6 rounded-sm ${
