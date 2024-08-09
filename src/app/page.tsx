@@ -1,19 +1,19 @@
-import { Container, Icons, Wrapper } from '@/components'
-import { BorderBeam } from '@/components/ui/border-beam'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { LampContainer } from '@/components/ui/lamp'
-import Marquee from '@/components/ui/marquee'
-import SectionBadge from '@/components/ui/section-badge'
-import { features, perks, reviews } from '@/constants'
-import { cn } from '@/lib/utils'
-import { ArrowRight, ChevronRight, UserIcon } from 'lucide-react'
-import Image from 'next/image'
-import Link from 'next/link'
+import { Container, Icons, Wrapper } from "@/components";
+import { BorderBeam } from "@/components/ui/border-beam";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { LampContainer } from "@/components/ui/lamp";
+import Marquee from "@/components/ui/marquee";
+import SectionBadge from "@/components/ui/section-badge";
+import { features, perks, reviews } from "@/constants";
+import { cn } from "@/lib/utils";
+import { ArrowRight, ChevronRight, UserIcon } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
 const HomePage = () => {
-  const firstRow = reviews.slice(0, reviews.length / 2)
-  const secondRow = reviews.slice(reviews.length / 2)
+  const firstRow = reviews.slice(0, reviews.length / 2);
+  const secondRow = reviews.slice(reviews.length / 2);
 
   return (
     <section className="w-full relative flex items-center justify-center flex-col px-4 md:px-0 py-8">
@@ -29,7 +29,7 @@ const HomePage = () => {
               </span>
               <span className="backdrop absolute inset-[1px] rounded-full bg-neutral-950 transition-colors duration-200 group-hover:bg-neutral-900" />
               <span className="h-full w-full blur-md absolute bottom-0 inset-x-0 bg-gradient-to-tr from-primary/40"></span>
-              <Link href={'/about'} className="relative">
+              <Link href={"/about"} className="relative">
                 <span className="z-10 py-0.5 text-sm text-neutral-100 flex items-center justify-center gap-1.5">
                   📝 About Me
                   <ChevronRight className="w-4 h-4" />
@@ -39,20 +39,22 @@ const HomePage = () => {
 
             <div className="flex flex-col items-center mt-8 max-w-3xl w-11/12 md:w-full">
               <h1 className="text-4xl md:text-6xl lg:textxl md:!leading-snug font-semibold text-center bg-clip-text bg-gradient-to-b from-gray-50 to-gray-50 text-transparent">
-                Build your next idea and ship your dream site
+                I&apos;m Adem, I enjoy building sites & apps.
               </h1>
               <p className="text-base md:text-lg text-foreground/80 mt-6 text-center">
-                Mximum speed. Make professional sites easy, fast and fun while
-                delivering best-in-class SEO, performance.
+                I&apos;m a former Quetratech engineer, now working as a
+                freelancer and running my own blog.
               </p>
+
               <div className="hidden md:flex relative items-center justify-center mt-8 md:mt-12 w-full">
                 <Link
                   href="/contact"
                   className="flex items-center justify-center w-max rounded-full border-t border-foreground/30 bg-white/20 backdrop-blur-lg px-2 py-1 md:py-2 gap-2 md:gap-8 shadow-3xl shadow-background/40 cursor-pointer select-none"
                 >
-                  <p className="text-foreground text-sm text-center md:text-base font-medium pl-4 pr-4 lg:pr-0">
-                    ☝️ {'  '} Start building your dream website now!
+                  <p className="text-foreground text-sm text-center md:text-base font-medium px-4 lg:px-0">
+                    ☝️ Start bringing your dream website to life!
                   </p>
+
                   <Button
                     size="sm"
                     className="rounded-full hidden lg:flex border border-foreground/20"
@@ -99,7 +101,7 @@ const HomePage = () => {
         <Container>
           <div className="flex flex-col items-center justify-center py-10 md:py-20 w-full">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full divide-x-0 md:divide-x divide-y md:divide-y-0 divide-gray-900 first:border-l-2 lg:first:border-none first:border-gray-900">
-              {perks.map(perk => (
+              {perks.map((perk) => (
                 <div
                   key={perk.title}
                   className="flex flex-col items-start px-4 md:px-6 lg:px-8 lg:py-6 py-4"
@@ -143,7 +145,7 @@ const HomePage = () => {
         <Container>
           <div className="flex flex-col items-center justify-center py-10 md:py-20 w-full">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full gap-8">
-              {features.map(feature => (
+              {features.map((feature) => (
                 <div
                   key={feature.title}
                   className="flex flex-col items-start lg:items-start px-0 md:px-0"
@@ -243,12 +245,12 @@ const HomePage = () => {
           <div className="py-10 md:py-20 w-full">
             <div className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden py-10">
               <Marquee pauseOnHover className="[--duration:20s] select-none">
-                {firstRow.map(review => (
+                {firstRow.map((review) => (
                   <figure
                     key={review.name}
                     className={cn(
-                      'relative w-64 cursor-pointer overflow-hidden rounded-xl border p-4',
-                      'border-zinc-50/[.1] bg-background over:bg-zinc-50/[.15]'
+                      "relative w-64 cursor-pointer overflow-hidden rounded-xl border p-4",
+                      "border-zinc-50/[.1] bg-background over:bg-zinc-50/[.15]"
                     )}
                   >
                     <div className="flex flex-row items-center gap-2">
@@ -273,12 +275,12 @@ const HomePage = () => {
                 pauseOnHover
                 className="[--duration:20s] select-none"
               >
-                {secondRow.map(review => (
+                {secondRow.map((review) => (
                   <figure
                     key={review.name}
                     className={cn(
-                      'relative w-64 cursor-pointer overflow-hidden rounded-xl border p-4',
-                      'border-zinc-50/[.1] bg-background over:bg-zinc-50/[.15]'
+                      "relative w-64 cursor-pointer overflow-hidden rounded-xl border p-4",
+                      "border-zinc-50/[.1] bg-background over:bg-zinc-50/[.15]"
                     )}
                   >
                     <div className="flex flex-row items-center gap-2">
@@ -360,7 +362,7 @@ const HomePage = () => {
                   </Button>
                 </form>
                 <p className="text-xs text-muted-foreground">
-                  By subscribing you agree with our{' '}
+                  By subscribing you agree with our{" "}
                   <Link href="#">Privacy Policy</Link>
                 </p>
               </div>
@@ -369,7 +371,7 @@ const HomePage = () => {
         </Container>
       </Wrapper>
     </section>
-  )
-}
+  );
+};
 
-export default HomePage
+export default HomePage;
