@@ -33,7 +33,7 @@ const Footer = () => {
               <ul className="mt-4 text-sm text-muted-foreground">
                 <li className="mt-2">
                   <Link
-                    href=""
+                    href="/"
                     className="hover:text-foreground transition-all duration-300"
                   >
                     Features
@@ -41,7 +41,7 @@ const Footer = () => {
                 </li>
                 <li className="mt-2">
                   <Link
-                    href=""
+                    href="/"
                     className="hover:text-foreground transition-all duration-300"
                   >
                     Testimonials
@@ -49,7 +49,7 @@ const Footer = () => {
                 </li>
                 <li className="mt-2">
                   <Link
-                    href=""
+                    href="/"
                     className="hover:text-foreground transition-all duration-300"
                   >
                     Integration
@@ -62,7 +62,7 @@ const Footer = () => {
               <ul className="mt-4 text-sm text-muted-foreground">
                 <li className="mt-2">
                   <Link
-                    href=""
+                    href="https://www.linkedin.com/in/adem-b-a3153023a/"
                     className="hover:text-foreground transition-all duration-300"
                   >
                     LinkedIn
@@ -70,7 +70,7 @@ const Footer = () => {
                 </li>
                 <li className="mt-2">
                   <Link
-                    href=""
+                    href="https://github.com/AdemBenAbdallah"
                     className="hover:text-foreground transition-all duration-300"
                   >
                     Github
@@ -78,7 +78,7 @@ const Footer = () => {
                 </li>
                 <li className="mt-2">
                   <Link
-                    href=""
+                    href="https://x.com/AdemSoft"
                     className="hover:text-foreground transition-all duration-300"
                   >
                     Twitter
@@ -93,7 +93,7 @@ const Footer = () => {
               <ul className="mt-4 text-sm text-muted-foreground">
                 <li className="mt-2">
                   <Link
-                    href=""
+                    href="/blog"
                     className="hover:text-foreground transition-all duration-300"
                   >
                     Blog
@@ -101,31 +101,10 @@ const Footer = () => {
                 </li>
                 <li className="mt-2">
                   <Link
-                    href=""
-                    className="hover:text-foreground transition-all duration-300"
-                  >
-                    Support
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            <div className="mt-10 md:mt-0 flex flex-col">
-              <h3 className="text-base font-medium text-white">Company</h3>
-              <ul className="mt-4 text-sm text-muted-foreground">
-                <li className="">
-                  <Link
-                    href=""
+                    href="/about"
                     className="hover:text-foreground transition-all duration-300"
                   >
                     About Me
-                  </Link>
-                </li>
-                <li className="mt-2">
-                  <Link
-                    href=""
-                    className="hover:text-foreground transition-all duration-300"
-                  >
-                    Privacy Policy
                   </Link>
                 </li>
               </ul>
@@ -136,7 +115,7 @@ const Footer = () => {
 
       <div className="mt-8 border-t border-border/40 pt-4 md:pt-8 md:flex md:items-center md:justify-between w-full">
         <p className="text-sm text-muted-foreground mt-8 md:mt-0">
-          &copy; {new Date().getFullYear()} Adem Ben Abdallah.
+          &copy; {new Date().getFullYear()} All rights reserved.
         </p>
       </div>
     </footer>
