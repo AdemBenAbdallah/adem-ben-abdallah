@@ -54,41 +54,12 @@ This approach ensures you can display appropriate feedback to the user while dat
 
 ## **2. Avoiding Race Conditions**
 
-A more subtle issue arises with multiple asynchronous requests.
-Let's take an example where you have Pokémon data to display.
-You have a button that, when clicked, changes the ID of the Pokemon
+A tricky issue can occur when multiple asynchronous requests are made. For example,
+if you click a button rapidly twice to change the Pokémon ID, a race condition might happen.
+This can cause the UI to display incorrect data because your state with the `id` will be out of sync
+with the fetch call if the fetch for ID 1 comes second and the fetch for ID 2 comes first by happenstance.
 
-<figure>
-  <Image src="/blog/race_cond1.png" alt="race condition 1" />
-  <figcaption>
-    Here, the `id` state is set to 1 when you click the button.
-  </figcaption>
-</figure>
-You still haven't received the data from the first request, but you click the button
-again, changing the `id` to 2.
-
-<figure>
-  <Image src="/blog/race_cond2.png" alt="race condition 2" />
-  <figcaption>
-    Here, the `id` state is set to 2 when you click the button.
-  </figcaption>
-</figure>
-Your state with the pokemonId will be out of sync with the fetch call if the fetch
-for ID 1 returns after the fetch for ID 2 due to happenstance.
-
-<figure>
-  <Image src="/blog/race_cond3.png" alt="race condition 3" />
-  <figcaption>The data for `id` 2 returns first.</figcaption>
-</figure>
-<figure>
-  <Image src="/blog/race_cond4.png" alt="race condition 4" />
-  <figcaption>The data for `id` 1 returns second.</figcaption>
-</figure>
-This race condition can cause the UI to display incorrect data, as the state
-might not reflect the latest requested `id`.
-
-If the user clicks a button or triggers a change that results in a new fetch,
-you could end up with race conditions this is how you can fix that:
+Here how you can fix that:
 
 ```js /floatingStyles/  showLineNumber {2,8, 20,21,22}
 useEffect(() => {
@@ -116,9 +87,7 @@ useEffect(() => {
 }, [id]);
 ```
 
-For more details about race condition you can
-[GitHub](http://github.com)
-By using a isMounted flag, you can ignore responses from outdated requests.
+I've written a full blog explaining race conditions, and I highly recommend checking it out: [Race Condition](http://localhost:3000/blog/race-condition-react).
 
 ## **3. Abstracting Data Fetching Logic**
 
@@ -225,9 +194,12 @@ export default function useQuery(url) {
 ```
 
 Are you still considering handling asynchronous data by yourself?
-I don't think so. Before trying to solve a problem by myself,
-I always check if others have already solved it for us,
-and in most cases, they have. That's where React Query comes in.
+I don't think so.
+
+> Before trying to solve a problem by myself,
+> I always check if others have already solved it for us,
+> and in most cases, they have.
+> .
 
 ## **5. Leveraging React Query**
 
@@ -264,7 +236,12 @@ React Query abstracts away much of the complexity involved in handling asynchron
 
 ## **Conclusion**
 
-Managing asynchronous data fetching in React involves more than just calling an API.
-Handling loading and error states, avoiding race conditions, abstracting logic, managing data duplication,
-and leveraging tools like React Query are essential for building robust and efficient applications.
-By addressing these aspects, you’ll enhance both the reliability and user experience of your React apps.
+Asynchronous data fetching in React requires careful consideration beyond just making API calls. To build reliable and efficient applications, it’s crucial to:
+
+- **Handle loading and error states effectively** to provide a smooth user experience.
+- **Avoid race conditions** to ensure the UI always reflects the most current data.
+- **Abstract fetching logic into reusable hooks** for cleaner and more maintainable code.
+- **Manage state duplication** to prevent redundant requests and ensure data consistency across components.
+- **Leverage tools like React Query** to simplify data fetching and state management.
+
+By addressing these areas, you'll not only improve the robustness of your applications but also enhance the overall user experience, making your React apps more performant and user-friendly.

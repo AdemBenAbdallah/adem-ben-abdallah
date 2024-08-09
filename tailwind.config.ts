@@ -44,6 +44,9 @@ module.exports = {
               background: "#2d4355",
               padding: "2px 0",
             },
+            strong: {
+              color: "#fff",
+            },
           },
         },
       },
