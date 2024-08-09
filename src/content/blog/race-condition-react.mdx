@@ -1,0 +1,187 @@
+---
+title: How to fix race condition in React
+description: Fixing race condition in React with useEffect
+date: 2024-08-06
+tags: ["react js", "useEffect"]
+published: true
+---
+
+Imagine you have a React component that fetches data based on an `id` prop.
+The component uses useEffect to fetch the data whenever the `id` changes, and then displays the results.
+
+However, you've noticed something odd: sometimes the data shown is accurate, but other times it's incorrect or outdated.
+
+This inconsistency is likely due to a race condition.
+
+In React, a race condition often occurs when two similar data requests are made, and the result displayed depends on which request finishes first.
+
+In this case, if the `id prop` changes quickly enough, the useEffect hook might trigger a race condition in the component's data fetching logic.
+
+```js
+import React, { useEffect, useState } from "react";
+
+export default function DataDisplayer(props) {
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(`https://swapi.dev/api/people/${props.id}/`);
+      const newData = await response.json();
+      setData(newData);
+    };
+
+    fetchData();
+  }, [props.id]);
+
+  if (data) {
+    return <div>{data.name}</div>;
+  } else {
+    return null;
+  }
+}
+```
+
+It might not be immediately clear that the above code is prone to race conditions,
+so I created a [CodeSandbox](https://rb.gy/virx7o) to make it more apparent. In this example, I added a random delay of up to 12 seconds per request.
+
+You can observe the intended behavior by clicking the "Fetch data!" button once. The component will simply display the data in response to the click.
+
+However, things become more complex if you click the "Fetch data!" button rapidly multiple times.
+The app will send out several requests, which may finish in a random order. The data from the last request to complete will be the one that gets displayed.
+
+Here’s how the updated DataDisplayer component looks now:
+
+```js showLineNumber {7,15}
+export default function DataDisplayer(props) {
+  const [data, setData] = useState(null);
+  const [fetchedId, setFetchedId] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setTimeout(async () => {
+        const response = await fetch(
+          `https://swapi.dev/api/people/${props.id}/`
+        );
+        const newData = await response.json();
+
+        setFetchedId(props.id);
+        setData(newData);
+      }, Math.round(Math.random() * 12000));
+    };
+
+    fetchData();
+  }, [props.id]);
+
+  if (data) {
+    return (
+      <div>
+        <p style={{ color: fetchedId === props.id ? "green" : "red" }}>
+          Displaying Data for: {fetchedId}
+        </p>
+        <p>{data.name}</p>
+      </div>
+    );
+  } else {
+    return null;
+  }
+}
+```
+
+## Fixing the useEffect race condition
+
+There are a couple of approaches we can take here, both taking
+advantage of useEffect’s clean-up function:
+
+- If we're okay with making several requests, but only rendering the last result, we can use a boolean flag.
+
+- Alternatively, if we don't have to support users on Internet Explorer, we can use [AbortController](https://developer.mozilla.org/en-US/docs/Web/API/AbortController).
+
+## useEffect Clean-up Function with Boolean Flag
+
+First, the gist of our fix in code:
+
+```js showLineNumber {2, 8,16,17,18}
+useEffect(() => {
+  let active = true;
+
+  const fetchData = async () => {
+    setTimeout(async () => {
+      const response = await fetch(`https://swapi.dev/api/people/${props.id}/`);
+      const newData = await response.json();
+      if (active) {
+        setFetchedId(props.id);
+        setData(newData);
+      }
+    }, Math.round(Math.random() * 12000));
+  };
+
+  fetchData();
+  return () => {
+    active = false;
+  };
+}, [props.id]);
+```
+
+This fix relies on an often overlooked sentence in the [React Hooks API reference](https://react.dev/learn/synchronizing-with-effects#step-3-add-cleanup-if-needed):
+
+> Additionally, if a component renders multiple times (as they typically do), the previous effect is cleaned up before executing the next effect
+> .
+
+In the example above:
+
+- changing `props.id` will cause a re-render,
+- every re-render will trigger the clean-up function to run, setting `active` to `false`,
+- with `active` set to `false`, the now-stale requests won't be able to update our state
+
+You'll still have a race-condition in the sense that multiple requests will be in-flight,
+but only the results from the last one will be used.
+
+It's likely not immediately obvious why the clean-up function in useEffect would fix this issue.
+I'd recommend you see this fix in action, by checking out the [CodeSandbox](https://rb.gy/5tj3cp)
+(I also added a counter to track the number of active requests, and couple of helper functions).
+
+## useEffect Clean-up Function with AbortController
+
+Again, let's start with the code:
+
+```js {2, 8,25,26,27}
+useEffect(() => {
+  const abortController = new AbortController();
+
+  const fetchData = async () => {
+    setTimeout(async () => {
+      try {
+        const response = await fetch(`https://swapi.dev/api/people/${id}/`, {
+          signal: abortController.signal,
+        });
+        const newData = await response.json();
+
+        setFetchedId(id);
+        setData(newData);
+      } catch (error) {
+        if (error.name === "AbortError") {
+          // Aborting a fetch throws an error
+          // So we can't update state afterwards
+        }
+        // Handle other request errors here
+      }
+    }, Math.round(Math.random() * 12000));
+  };
+
+  fetchData();
+  return () => {
+    abortController.abort();
+  };
+}, [id]);
+```
+
+Like in the previous example, we're taking advantage of React's behavior of running the clean-up function before executing the next effect. You can explore this in the [CodeSandbox](https://rb.gy/xx6ejb) as well (in this case, we're not tracking the number of requests since only one can be active at any given time).
+
+In this example, we are:
+
+- Initializing an `AbortController` at the start of the effect.
+- Passing the [`AbortController.signal`](https://developer.mozilla.org/en-US/docs/Web/API/AbortController/signal) to the `fetch` function via the options argument.
+- Catching any `AbortErrors` that are thrown (when `abort()` is called, the `fetch()` promise rejects with an `AbortError`; see [MDN reference](https://developer.mozilla.org/en-US/docs/Web/API/AbortController/abort)).
+- Calling the abort function within the clean-up function.
+
+This approach presents a trade-off: you'll need to drop support for Internet Explorer or use a polyfill in exchange for the ability to cancel in-progress HTTP requests.

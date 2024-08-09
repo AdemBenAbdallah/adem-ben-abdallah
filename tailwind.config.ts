@@ -27,8 +27,22 @@ module.exports = {
             h1: {
               color: "#fff",
             },
+            h2: {
+              color: "#fff",
+            },
+            h3: {
+              color: "#fff",
+            },
+            p: {
+              color: "#fff",
+            },
+            blockquote: {
+              color: "#fff",
+            },
             code: {
               color: "#fff",
+              background: "#2d4355",
+              padding: "2px 0",
             },
           },
         },

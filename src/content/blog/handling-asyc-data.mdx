@@ -90,7 +90,7 @@ might not reflect the latest requested `id`.
 If the user clicks a button or triggers a change that results in a new fetch,
 you could end up with race conditions this is how you can fix that:
 
-```js /floatingStyles/
+```js /floatingStyles/  showLineNumber {2,8, 20,21,22}
 useEffect(() => {
   let isMounted = true;
 
@@ -116,6 +116,8 @@ useEffect(() => {
 }, [id]);
 ```
 
+For more details about race condition you can
+[GitHub](http://github.com)
 By using a isMounted flag, you can ignore responses from outdated requests.
 
 ## **3. Abstracting Data Fetching Logic**
@@ -123,7 +125,7 @@ By using a isMounted flag, you can ignore responses from outdated requests.
 If you try to push that code to production, someone will definitely ask, 'Can you just hook it up as a custom hook?' 🪝
 and you'll finish with code like this:
 
-```js showLineNumbers {2-4}
+```js showLineNumbers
 const usePokemon = (id) => {
   const [id, setId] = useState(1);
   const [pokemon, setPokemon] = useState(null);
