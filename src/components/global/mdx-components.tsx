@@ -1,3 +1,4 @@
+import Link from "next/link";
 import * as runtime from "react/jsx-runtime";
 import { Callout } from "../ui/callout";
 import MDXImage from "./mdx-image";
@@ -10,6 +11,7 @@ const useMDXComponent = (code: string) => {
 const components = {
   Image: MDXImage,
   Callout,
+  Link,
 };
 
 interface MdxProps {
