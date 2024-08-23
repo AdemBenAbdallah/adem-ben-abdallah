@@ -51,22 +51,22 @@ Cleaner, More Linear Code
 
 Uniform Error Handling
 
-- Problem: Different APIs might require different error-handling techniques, leading to inconsistencies.
-- Solution: The ?= operator introduces a consistent way to handle errors across all APIs, ensuring uniform behavior.
+- **Problem**: Different APIs might require different error-handling techniques, leading to inconsistencies.
+- **Solution**: The ?= operator introduces a consistent way to handle errors across all APIs, ensuring uniform behavior.
 
 ## **Improved Security**
 
 Never Miss an Error Again
 
-- Problem: Overlooking error handling can lead to unnoticed bugs and potential security risks.
-- Solution: By automatically handling errors in a standardized way, the ?= operator reduces the chance of missing critical errors.
+- **Problem**: Overlooking error handling can lead to unnoticed bugs and potential security risks.
+- **Solution**: By automatically handling errors in a standardized way, the ?= operator reduces the chance of missing critical errors.
 
 ## **Symbol.result: The Secret Sauce**
 
 Customizable Error Handling
 
-- Overview: Objects that implement the Symbol.result method can use the ?= operator to define their own error-handling logic.
-- Usage: The Symbol.result method should return a tuple [error, result].
+- **Overview**: Objects that implement the Symbol.result method can use the ?= operator to define their own error-handling logic.
+- **Usage**: The Symbol.result method should return a tuple [error, result].
 
 **Example**
 
@@ -85,9 +85,9 @@ function example() {
 
 Handle Nested Errors Like a Pro
 
-- Overview: The ?= operator can recursively handle nested objects that implement Symbol.result, ensuring even complex error scenarios are managed smoothly.
+- **Overview**: The ?= operator can recursively handle nested objects that implement Symbol.result, ensuring even complex error scenarios are managed smoothly.
 
-**Example **
+**Example**
 
 ```js
  const obj = {
@@ -105,7 +105,7 @@ Handle Nested Errors Like a Pro
 
 Async Error Handling Made Easy
 
-- Overview: The ?= operator is designed to work seamlessly with Promises
+- **Overview**: The ?= operator is designed to work seamlessly with Promises
   and async/await, making error handling in asynchronous code straightforward.
 
 **Example**
@@ -118,7 +118,7 @@ const [error, data] ?= await fetch("https://api.example.com");
 
 Streamline Resource Management
 
-- Overview: The ?= operator can be used with using statements to manage
+- **Overview**: The ?= operator can be used with using statements to manage
   resources more effectively, making cleanup easier and less error-prone.
 
 **Example**
@@ -131,7 +131,7 @@ Streamline Resource Management
 
 Prioritizing Error Handling
 
-- Overview: Placing the error first in the [error, data] ?= structure ensures that errors
+- **Overview**: Placing the error first in the [error, data] ?= structure ensures that errors
   are handled before processing data, reducing the risk of ignoring errors.
 
 **Example**
@@ -144,7 +144,7 @@ Prioritizing Error Handling
 
 Future-Proof Your Code
 
-- Overview: While the ?= operator cannot be polyfilled directly, its behavior can be
+- **Overview**: While the ?= operator cannot be polyfilled directly, its behavior can be
   simulated using post-processors to maintain compatibility with older environments.
 
 **Example**
@@ -157,15 +157,15 @@ const [error, data] = someFunction[Symbol.result]();
 
 Inspired by the Best
 
-- Overview: The pattern behind the ?= operator is inspired by similar constructs in languages
+- **Overview**: The pattern behind the ?= operator is inspired by similar constructs in languages
   like Go, Rust, and Swift, which have long embraced more structured error handling.
 
 Current Limitations and Areas for Improvement
 Still a Work in Progress
 
--Nomenclature: The proposal needs a clear term for objects implementing Symbol.result.
+- **Nomenclature**: The proposal needs a clear term for objects implementing Symbol.result.
 
-- Finally Blocks: There’s no new syntax for finally blocks, but you can still use them in the traditional way.
+- **Finally Blocks**: There’s no new syntax for finally blocks, but you can still use them in the traditional way.
   For more information, visit the GitHub repository.
 
 ## **Conclusion**
